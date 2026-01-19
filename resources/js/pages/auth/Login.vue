@@ -18,6 +18,7 @@ defineProps<{
     canResetPassword: boolean;
     canRegister: boolean;
 }>();
+
 </script>
 
 <template>
@@ -103,9 +104,18 @@ defineProps<{
                 class="text-center text-sm text-muted-foreground"
                 v-if="canRegister"
             >
+                Login with
+                <TextLink :href="test" :tabindex="5">Github</TextLink>
+            </div>
+
+            <div
+                class="text-center text-sm text-muted-foreground"
+                v-if="canRegister"
+            >
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>
+            <InputError :message="errors.provider" />
         </Form>
     </AuthBase>
 </template>
