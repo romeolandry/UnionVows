@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+//import { computed } from 'vue';
 
+import ProviderRedirectController from "@/actions/App/Http/Controllers/Socialite/ProviderRedirectController";
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -12,6 +14,9 @@ import AuthBase from '@/layouts/AuthLayout.vue';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+
+
+
 
 defineProps<{
     status?: string;
@@ -105,7 +110,13 @@ defineProps<{
                 v-if="canRegister"
             >
                 Login with
-                <TextLink :href="test" :tabindex="5">Github</TextLink>
+                <a :href="ProviderRedirectController.url('google')" class="underline underline-offset-4">Google</a>
+                or
+                <a :href="ProviderRedirectController.url('github')" class="underline underline-offset-4">GitHub</a>
+
+                <div v-if="$page.props.errors.provider" class="text-red-600 mb-4">
+                    {{ $page.props.errors.provider }}
+                </div>
             </div>
 
             <div
