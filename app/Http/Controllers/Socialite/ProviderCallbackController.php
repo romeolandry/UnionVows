@@ -28,6 +28,7 @@ class ProviderCallbackController extends Controller
             $user = User::updateOrCreate([
                 'provider_id' => $socialUseruser->id,
                 'provider_name' => $profider,
+                'email' => $socialUseruser->email,
             ], [
                 'name' => ($socialUseruser->name) ? $socialUseruser->name : $socialUseruser->nickname,
                 'email' => $socialUseruser->email,
@@ -44,7 +45,7 @@ class ProviderCallbackController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
             Log::error($th->getMessage());
-            
+
             return redirect(route('login'))->withErrors([
                 'provider' => "Authentication with {$profider} failed. Please try again."
             ]);
